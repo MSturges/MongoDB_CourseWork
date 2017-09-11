@@ -1,5 +1,5 @@
 // assert comes with mocha
-const assert = require('assert')
+const assert = require('assert');
 const User = require('../src/user');
 
 
