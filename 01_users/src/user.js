@@ -9,7 +9,11 @@ const Schema = mongoose.Schema;
 
 // create our schema
 const UserSchema = new Schema({
-  name: String
+  name: {
+    type: String,
+    required: [true, 'Name is required.'],
+  },
+  postCount: Number
 });
 
 // Where mongoose begins to do a lot of work:
