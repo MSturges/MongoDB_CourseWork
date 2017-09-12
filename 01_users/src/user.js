@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+//importing our sub document schema and embeding it into our user model
+const PostSchema = require('./post');
 const Schema = mongoose.Schema;
-
 // A user model represents all of the data in a single collection in our mongodb
 // So when we create a user model, mongoose will automactially create a collection
 // of users in our database as well.
@@ -17,7 +18,8 @@ const UserSchema = new Schema({
     },
     required: [true, 'Name is required.']
   },
-  postCount: Number
+  postCount: Number,
+  posts: [PostSchema]
 });
 
 // Where mongoose begins to do a lot of work:
