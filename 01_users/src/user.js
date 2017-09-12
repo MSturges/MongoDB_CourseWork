@@ -18,8 +18,16 @@ const UserSchema = new Schema({
     },
     required: [true, 'Name is required.']
   },
-  postCount: Number,
-  posts: [PostSchema]
+  posts: [PostSchema],
+  likes: Number
+});
+
+// by calling virtual we are telling mongoose that we want to define a virtual field
+// get
+UserSchema.virtual('postCount').get(function() {
+
+  return this.posts.length
+
 });
 
 // Where mongoose begins to do a lot of work:
