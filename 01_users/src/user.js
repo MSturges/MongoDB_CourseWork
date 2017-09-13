@@ -34,6 +34,24 @@ UserSchema.virtual('postCount').get(function() {
 
 });
 
+
+// This is mongoose pre middleware
+// We use function so we have a reference to this.
+// this = to the user instance
+UserSchema.pre('remove', function(next) {
+  // This is what is going to be called before a record is removed
+  const BlogPost = mongoose.model('blogPost');
+
+  //this.blogPosts is a reference to joe and  will be an array of all the blogPosts
+  // that we want to delete using the remove method
+  // if the id is $in this array of blog posts ? delete blogpost
+
+  // next is used for middleware.
+
+  BlogPost.remove({ _id: { $in: this.blogPosts } })
+    .then(() => next() )
+});
+
 // Where mongoose begins to do a lot of work:
 // - mongoose do you have a collection call 'users' ?  : I'll make it with the provided Schema
 //
