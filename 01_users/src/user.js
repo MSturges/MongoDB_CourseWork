@@ -19,7 +19,11 @@ const UserSchema = new Schema({
     required: [true, 'Name is required.']
   },
   posts: [PostSchema],
-  likes: Number
+  likes: Number,
+  blogPosts: [{
+    type: Schema.Types.ObjectId,
+    ref: 'blogPost'
+  }]
 });
 
 // by calling virtual we are telling mongoose that we want to define a virtual field

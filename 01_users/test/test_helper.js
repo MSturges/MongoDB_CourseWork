@@ -31,17 +31,28 @@ before((done) => {
 
 
 
-
+//
 // creating a hook - a function that will be executed before any test gets executed
 // done tells Mocha that we have completed all of our logic in the beforeEach function
-beforeEach((done) => {
+// beforeEach((done) => {
 
   // dropping all of our users in our collection of users
   // drop accepts a call back function as a parameter
   // this function will only be executed when drop has dropped our collection of users
-  mongoose.connection.collections.users.drop(() => {
-    //ready to run our next test.
-    done();
+  // mongoose.connection.collections.users.drop(() => {
+  //   //ready to run our next test.
+  //   done();
+  // });
+
+beforeEach((done) => {
+  const {users, comments, blogposts } = mongoose.connection.collections;
+
+  users.drop(() => {
+      comments.drop(() => {
+        blogposts.drop(() => {
+          done();
+        });
+      });
   });
 
 });
