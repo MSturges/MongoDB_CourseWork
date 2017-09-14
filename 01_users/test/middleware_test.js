@@ -21,7 +21,6 @@ describe('Middleware', () => {
 
   it('users clean up dangling bloposts on remove', (done) => {
 
-    console.log('joe', joe)
     joe.remove()
       // .then(() =>     User.find({ name: 'Joe'}) )
       // .then((user) => {

@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const assert = require('assert');
 // Pulling in our models
 const User = require('../src/user');
@@ -68,7 +67,6 @@ describe('Associations', () => {
         }
       }
     }).then((user) => {
-      // console.log(user.blogPosts[0].comments[0].user);
 
       assert(user.name === 'Joe');
       assert(user.blogPosts[0].title === 'JS is Great');
