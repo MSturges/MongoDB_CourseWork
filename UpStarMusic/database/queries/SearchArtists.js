@@ -10,6 +10,64 @@ const Artist = require('../models/artist');
  */
 module.exports = (criteria, sortProperty, offset = 0, limit = 20) => {
 
-  
+  // es5 solution:
+  //create and object
+  // give it a property sortProperty and set it = 1
+  // then pass this object to the sort call
+
+  // const sortOrder = {};
+  // sortOrder[sortProperty] = 1;
+
+  //es6 interpolated keys
+  // at run time look a sortProperty variable, what ever it is = to
+  // add that property to the [sortProperty] and then give it a value of 1
+  //
+
+
+
+  const query = Artist.find(buildQuery(criteria))
+    .sort({ [sortProperty] : 1})
+    .skip(offset)
+    .limit(limit);
+
+    return Promise.all([query, Artist.find(buildQuery(criteria)).count()])
+      .then((results) => {
+        return {
+          all: results[0],
+          count: results[1],
+          offset: offset,
+          limit: limit
+        };
+      });
+
+};
+
+const buildQuery = (criteria) => {
+
+  const query = {};
+  console.log(criteria)
+
+  if(criteria.name) {
+    query.$text = { $search: criteria.name }
+  }
+
+  if(criteria.age) {
+
+    query.age = {
+      $gte: criteria.age.min,
+      $lte: criteria.age.max
+    }
+  }
+  if(criteria.yearsActive) {
+    query.yearsActive = {
+      $gte: criteria.yearsActive.min,
+      $lte: criteria.yearsActive.max
+    }
+  }
+
+  return query
+
+
+
 
 };
