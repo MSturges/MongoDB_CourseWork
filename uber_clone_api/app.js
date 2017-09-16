@@ -1,14 +1,13 @@
 const express = require('express');
 const app = express();
+const routes = require('./routes/routes')
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
-// for any http request using get rquest
-// listen for this route 'http://localhost:3050/api'
-// then call the call back
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/uber');
 
-
-app.get('/api', (req, res) => {
-
-  res.send({ hi: 'there' });
-});
+app.use(bodyParser.json());
+routes(app);
 
 module.exports = app;
