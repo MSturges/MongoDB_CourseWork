@@ -13,10 +13,13 @@ before(done => {
     });
 });
 
+// ensureIndex makes sure that their is an index presnet on the geomerty.coordinates
+// property on the drivers co9llec tion
+
 beforeEach(done => {
 
   const { drivers } = mongoose.connection.collections;
-  drivers.drop()
+  drivers.drop().then(() => drivers.ensureIndex({ 'geometry.coordinates': '2dsphere' }))
     .then((yo) => {
       done();
     })
