@@ -5,7 +5,8 @@ module.exports = (app) => {
   // listen for this route 'http://localhost:3050/api'
   // then call the call back
   app.get('/api', DriversController.greeting);
-
   app.post('/api/drivers', DriversController.create);
+  app.put('/api/drivers/:id', DriversController.edit);
+  app.delete('/api/drivers/:id', DriversController.delete);
 
 }
